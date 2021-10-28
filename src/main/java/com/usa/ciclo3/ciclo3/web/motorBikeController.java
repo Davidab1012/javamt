@@ -1,0 +1,69 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package com.usa.ciclo3.ciclo3.web;
+
+import com.usa.ciclo3.ciclo3.model.motorBike;
+import com.usa.ciclo3.ciclo3.service.motorBikeService;
+import java.util.List;
+import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+
+/**
+ *
+ * @author USUARIO
+ */
+@RestController
+@RequestMapping("/api/Motorbike")
+@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE})
+public class motorBikeController {
+    
+    @GetMapping("/holaMundo")
+    public String saludad(){
+    return "Hola Mundo Tutoria";
+    }
+
+    
+    @Autowired
+    private motorBikeService servicio;
+    @GetMapping("/all")
+    public List <motorBike> getOrthesis(){
+        return servicio.getAll();
+    }
+    
+    @GetMapping("/{id}")
+    public Optional<motorBike> getOrthesis(@PathVariable("id") int idOrthesis) {
+        return servicio.getOrthesis(idOrthesis);
+    }
+
+    @PostMapping("/save")
+    @ResponseStatus(HttpStatus.CREATED)
+    public motorBike save(@RequestBody motorBike orthesis) {
+        return servicio.save(orthesis);
+    }
+    @PutMapping("/update")
+    @ResponseStatus(HttpStatus.CREATED)
+    public motorBike update(@RequestBody motorBike ortesis) {
+        return servicio.update(ortesis);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public boolean delete(@PathVariable("id") int ortesisId) {
+        return servicio.deleteOrtesis(ortesisId);
+    }
+    
+}
